@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SnipsAdddaemon",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "program": "${workspaceRoot}/admain.py",
+            "pythonPath": "python3",
+            "exceptionHandling": {
+                "ignore": ["ImportError"]
+            },
+            "args": [
+            ],
+            "debugOptions": [
+                "RedirectOutput"
+            ]
+        }
+    ]
+}

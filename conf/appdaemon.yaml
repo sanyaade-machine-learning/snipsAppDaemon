@@ -1,0 +1,17 @@
+log:
+  accessfile: STDOUT
+  errorfile: STDOUT
+  logfile: STDOUT
+  log_generations: 3
+  log_size: 1000000
+appdaemon:
+  threads: 10
+  plugins:
+    HASS:
+      type: mqtt
+      ha_url: http://10.0.1.20:8123
+      namespace: mqtt
+      mqtt_client_host: 10.0.1.22
+      mqtt_client_port: 1883
+      mqtt_client_topics:
+        - hermes/intent/#

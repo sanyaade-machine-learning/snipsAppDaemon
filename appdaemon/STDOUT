@@ -1,0 +1,128 @@
+2018-02-16 17:49:28.472723 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 17:49:28.474989 WARNING AppDaemon: Unexpected error loading module: /Users/gregbail/XCodeProjects/GITHUB/appdaemon/conf/apps/hello.py:
+2018-02-16 17:49:28.475834 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 17:49:28.480483 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1823, in check_app_updates
+    self.read_app(mod["name"], mod["reload"])
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1640, in read_app
+    importlib.reload(self.modules[module_name])
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/importlib/__init__.py", line 166, in reload
+    _bootstrap._exec(spec, module)
+  File "<frozen importlib._bootstrap>", line 618, in _exec
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/conf/apps/hello.py", line 2, in <module>
+    import plugins.snips.snipsapi as hass
+ModuleNotFoundError: No module named 'plugins.snips'
+
+2018-02-16 17:49:28.481652 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 17:49:40.599782 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 17:49:40.600707 WARNING AppDaemon: Unexpected error loading module: /Users/gregbail/XCodeProjects/GITHUB/appdaemon/conf/apps/hello.py:
+2018-02-16 17:49:40.601604 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 17:49:40.604141 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1823, in check_app_updates
+    self.read_app(mod["name"], mod["reload"])
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1640, in read_app
+    importlib.reload(self.modules[module_name])
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/importlib/__init__.py", line 166, in reload
+    _bootstrap._exec(spec, module)
+  File "<frozen importlib._bootstrap>", line 618, in _exec
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/conf/apps/hello.py", line 2, in <module>
+    import plugins.snips.snipsapi as hass
+ModuleNotFoundError: No module named 'plugins.snips'
+
+2018-02-16 17:49:40.604846 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:26:01.968098 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:26:01.974279 WARNING AppDaemon: Unexpected error during notify_plugin_started()
+2018-02-16 18:26:01.976070 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:26:01.979657 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1194, in notify_plugin_started
+    meta = await self.plugin_objs[namespace].get_metadata()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 94, in get_metadata
+    return await self.get_hass_config()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 127, in get_hass_config
+    if self.ha_key != "":
+AttributeError: 'MqttPlugin' object has no attribute 'ha_key'
+
+2018-02-16 18:26:01.980353 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:26:02.984743 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: latitude
+2018-02-16 18:26:02.986387 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:26:02.997667 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: longitude
+2018-02-16 18:26:02.998953 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:26:03.000113 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: elevation
+2018-02-16 18:26:03.001269 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:26:03.002762 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: time_zone
+2018-02-16 18:26:03.004091 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:27:52.773496 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:27:52.774239 WARNING AppDaemon: Unexpected error during notify_plugin_started()
+2018-02-16 18:27:52.774889 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:27:52.777796 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1194, in notify_plugin_started
+    meta = await self.plugin_objs[namespace].get_metadata()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 94, in get_metadata
+    return await self.get_hass_config()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 127, in get_hass_config
+    if self.ha_key != "":
+AttributeError: 'MqttPlugin' object has no attribute 'ha_key'
+
+2018-02-16 18:27:52.778466 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:27:53.783871 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: latitude
+2018-02-16 18:27:53.784695 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:27:53.798280 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: longitude
+2018-02-16 18:27:53.800213 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:27:53.801662 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: elevation
+2018-02-16 18:27:53.802422 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:27:53.803225 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: time_zone
+2018-02-16 18:27:53.803936 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:29:13.782382 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:29:13.783135 WARNING AppDaemon: Unexpected error during notify_plugin_started()
+2018-02-16 18:29:13.783948 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:29:13.787001 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1194, in notify_plugin_started
+    meta = await self.plugin_objs[namespace].get_metadata()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 94, in get_metadata
+    return await self.get_hass_config()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 127, in get_hass_config
+    if self.ha_key != "":
+AttributeError: 'MqttPlugin' object has no attribute 'ha_key'
+
+2018-02-16 18:29:13.787977 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:29:14.790694 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: latitude
+2018-02-16 18:29:14.792521 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:29:14.800467 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: longitude
+2018-02-16 18:29:14.801843 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:29:14.802921 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: elevation
+2018-02-16 18:29:14.803696 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:29:14.804522 ERROR AppDaemon: Required attribute not set or obtainable from any plugin: time_zone
+2018-02-16 18:29:14.805513 ERROR AppDaemon: AppDaemon is terminating
+2018-02-16 18:41:00.271709 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:41:00.273215 WARNING AppDaemon: Unexpected error during notify_plugin_started()
+2018-02-16 18:41:00.273958 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:41:00.278466 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 1200, in notify_plugin_started
+    state = await self.plugin_objs[namespace].get_complete_state()
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/plugins/mqtt/mqttplugin.py", line 142, in get_complete_state
+    self.verbose_log("*** Sending Complete State: {} ***".format(hass_state))
+AttributeError: 'MqttPlugin' object has no attribute 'verbose_log'
+
+2018-02-16 18:41:00.281056 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:41:09.652545 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:41:09.653607 WARNING AppDaemon: Unexpected error during state_update()
+2018-02-16 18:41:09.654411 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:41:09.656481 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 2117, in state_update
+    self.state[namespace][entity_id] = data['data']['new_state']
+KeyError: 'mqtt'
+
+2018-02-16 18:41:09.657755 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:42:09.610395 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:42:09.611344 WARNING AppDaemon: Unexpected error during state_update()
+2018-02-16 18:42:09.612138 WARNING AppDaemon: ------------------------------------------------------------
+2018-02-16 18:42:09.613776 WARNING AppDaemon: Traceback (most recent call last):
+  File "/Users/gregbail/XCodeProjects/GITHUB/appdaemon/appdaemon/appdaemon.py", line 2117, in state_update
+    self.state[namespace][entity_id] = data['data']['new_state']
+KeyError: 'mqtt'
+
+2018-02-16 18:42:09.614631 WARNING AppDaemon: ------------------------------------------------------------

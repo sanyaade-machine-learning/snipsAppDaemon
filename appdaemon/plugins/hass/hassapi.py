@@ -24,16 +24,16 @@ def hass_check(func):
     return (func_wrapper)
 
 
-class Snips(appapi.AppDaemon):
+class Hass(appapi.AppDaemon):
     #
     # Internal
     #
 
     def __init__(self, ad, name, logger, error, args, config, app_config, global_vars):
 
-        super(Snips, self).__init__(ad, name, logger, error, args, config, app_config, global_vars)
+        super(Hass, self).__init__(ad, name, logger, error, args, config, app_config, global_vars)
 
-        self.namespace = "snips"
+        self.namespace = "default"
         self.AD = ad
         self.name = name
         self._logger = logger
@@ -83,17 +83,17 @@ class Snips(appapi.AppDaemon):
         namespace = self._get_namespace(**kwargs)
         if "namespace" in kwargs:
             del kwargs["namespace"]
-        return super(Snips, self).listen_state(namespace, cb, entity, **kwargs)
+        return super(Hass, self).listen_state(namespace, cb, entity, **kwargs)
 
     #
-    # Likewise with get and set state
+    # Likewise with get state
     #
 
     def get_state(self, entity=None, **kwargs):
         namespace = self._get_namespace(**kwargs)
         if "namespace" in kwargs:
             del kwargs["namespace"]
-        return super(Snips, self).get_state(namespace, entity, **kwargs)
+        return super(Hass, self).get_state(namespace, entity, **kwargs)
 
     def set_state(self, entity_id, **kwargs):
         namespace = self._get_namespace(**kwargs)
@@ -156,7 +156,7 @@ class Snips(appapi.AppDaemon):
         namespace = self._get_namespace(**kwargs)
         if "namespace" in kwargs:
             del kwargs["namespace"]
-        return super(Snips, self).listen_event(namespace, cb, event, **kwargs)
+        return super(Hass, self).listen_event(namespace, cb, event, **kwargs)
 
 
     #
@@ -179,7 +179,7 @@ class Snips(appapi.AppDaemon):
         msg = self._sub_stack(msg)
         self.AD.err(level, msg, self.name)
 
-    def get_ha_config(self, **kwargs):
+    def get_hass_config(self, **kwargs):
         namespace = self._get_namespace(**kwargs)
         return self.AD.get_plugin_meta(namespace)
 
@@ -428,3 +428,4 @@ class Snips(appapi.AppDaemon):
         )
         r.raise_for_status()
         return r.json()
+

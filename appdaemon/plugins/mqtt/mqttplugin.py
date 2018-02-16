@@ -1,31 +1,36 @@
-import paho.mqtt.client as mqtt
+import yaml
 import asyncio
+import copy
+import string
+import paho.mqtt.client as mqtt
 import json
+import utils as utils
 import ssl
 from websocket import create_connection
 from pkg_resources import parse_version
 from sseclient import SSEClient
 import traceback
 import aiohttp
-import appdaemon.utils as utils
 
-class SnipsPlugin:
+class MqttPlugin:
 
-    def __init__(self, ad, name, logger, error, loglevel, args):
+    def __init__(self, ad, name, logger, error, loglevel,args):
 
         self.AD = ad
         self.logger = logger
         self.error = error
         self.stopping = False
-        self.config = args
         self.loglevel = loglevel
+        self.config = args
+        self.name = name
+        self.state = None
         self.ws = None
         self.reading_messages = False
-        self.name = name
+       
 
-        self.log("INFO", "Snips HASS Plugin Initializing")
+        self.AD.log("INFO", "MQTT Plugin Initializing")
 
-        self.name = name
+        #self.name = name
 
         if "namespace" in args:
             self.namespace = args["namespace"]
@@ -73,9 +78,6 @@ class SnipsPlugin:
         conn = aiohttp.TCPConnector()
         self.session = aiohttp.ClientSession(connector=conn)
 
-        #
-        # Set up MQTT Client and Connections
-        #
         self.mqtt_client_host = args.get('mqtt_client_host', '127.0.0.1')
         self.mqtt_client_port = args.get('mqtt_client_port', 1883)
         self.mqtt_client_topics = args.get('mqtt_client_topics', ['#'])
@@ -87,60 +89,14 @@ class SnipsPlugin:
         self.mqtt_client = mqtt.Client()
         self.mqtt_client.on_connect = self.mqtt_on_connect
         self.mqtt_client.on_message = self.mqtt_on_message
-        self.mqtt_client.on_publish = self.mqtt_on_publish
-        self.mqtt_client.on_subscribe = self.mqtt_on_subscribe
-        self.mqtt_client.on_disconnect = self.mqtt_on_disconnect
-
-        if self.mqtt_client_user and self.mqtt_client_password:
+        if self.mqtt_client_user:
             self.mqtt_client.username_pw_set(self.mqtt_client_user, password=self.mqtt_client_password)
 
-        self.log("INFO", "MQTT Connecting to: {}:{}".format(self.mqtt_client_host,self.mqtt_client_port))
-
-        
-        self.mqtt_client.connect_async(self.mqtt_client_host, self.mqtt_client_port, self.mqtt_client_timeout)
+        self.mqtt_client.connect_async(self.mqtt_client_host, self.mqtt_client_port,
+                                 self.mqtt_client_timeout)
         self.mqtt_client.loop_start()
 
-        self.mqtt_client.subscribe("hermes/intent/greg", 0)
-        #publish.single("encyclopedia/temperature", payload="hot")
-        #(rc, mid) = self.mqtt_client.publish("encyclopedia/temperature", payload="hotter", qos=0)
-        #self.log("INFO", "MQTT pub: {}:{}".format(rc,mid))
-        #self.mqtt_client.publish("encyclopedia/temperature", payload="hotter")
-
-        self.log("INFO", "Snips HASS Plugin initialization complete")
-
-    def log(self, level, message):
-        self.AD.log(level, "{}: {}".format(self.name, message))
-
-    def verbose_log(self, text):
-        if self.verbose:
-            self.log("INFO", text)
-    
-    def mqtt_on_subscribe(self, mosq, obj, mid, granted_qos):
-        self.log("INFO", "MQTT on_subscribe: {} | {} | {} | {}".format(mosq, obj, mid, granted_qos))
-
-    def mqtt_on_disconnect(self, client, userdata, rc):
-        self.log("INFO", "MQTT on_disconnect: {}".format(rc))
-
-
-    def mqtt_on_connect(self, client, userdata, flags, rc):
-        for topic in self.mqtt_client_topics:
-            self.log("INFO", "MQTT on_connect: subscribed to: {}".format(topic))
-            self.mqtt_client.subscribe(topic, 0)
-
-    def mqtt_on_message(self, client, userdata, msg):
-        self.log("DEBUG", "MQTT on_message: {}".format(msg.payload))
-        if msg.topic is not None and msg.topic.startswith("hermes/intent/") and msg.payload:
-            payload = msg.payload
-            if 'intent' in payload and 'intentName' in payload['intent']:
-                snips_intent_name = payload['intent']['intentName'].split(':')[-1].split(":")[-1]
-                self.AD.state_update(self.namespace, {'event_type': 'MQTT_MESSAGE', 'intent': snips_intent_name, 'payload': msg.payload.decode('utf-8')})
-
-        #self.AD.state_update(self.namespace,
-        #    {'event_type': 'MQTT_MESSAGE', 'data': {'topic': msg.topic,
-        #            'payload': msg.payload.decode('utf-8')}})
-
-    def mqtt_on_publish(self, client, userdata, msg):
-        self.log("DEBUG", "MQTT on_publish: {}".format(msg.payload))
+        self.AD.log('INFO', "MQTT Plugin initialization complete")
 
     def stop(self):
         self.log("INFO", "Stopping MQTT")
@@ -150,6 +106,28 @@ class SnipsPlugin:
         if self.ws is not None:
             self.ws.close()
 
+    def log(self, text, level='INFO'):
+        if self.verbose:
+            self.AD.log(level, "{}: {}".format(self.name, text))
+    
+    def verbose_log(self, text):
+        if self.verbose:
+            self.log("INFO", text)
+
+    def mqtt_on_connect(self, client, userdata, flags, rc):
+        self.log("MQTT Connecting")
+        #self.AD.log('INFO'," __function__: ".format(self.state))
+        for topic in self.mqtt_client_topics:
+            self.log("on_connect: subscribed: {}".format(
+                    topic))
+            self.mqtt_client.subscribe(topic, 0)
+
+    def mqtt_on_message(self, client, userdata, msg):
+        try:
+            self.AD.state_update(self.namespace, {'event_type': snips_intent_name, 'data': {'topic': msg.topic, 'payload': msg.payload.decode('utf-8')}})
+        except Exception as e:
+            print(e)
+            self.AD.state_update(self.namespace, {'event_type': "adminRequests", 'data': {'topic': "", 'payload': msg.payload.decode('utf-8')}})
     #
     # Get initial state
     #
